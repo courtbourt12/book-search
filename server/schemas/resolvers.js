@@ -4,7 +4,7 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    user: async (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id }).select(
           "-__v -password"
@@ -15,14 +15,9 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    books: async (parent, { user_id }) => {
-      return User.find({ _id: user_id });
-    },
-    book: async (parent, { book_id }) => {
-      return Book.findOne({ _id: book_id });
-    },
   },
-  Mutations: {
+
+  Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -48,7 +43,7 @@ const resolvers = {
       return { token, user };
     },
     // Add new Book
-    addBook: async (parent, body) => {
+    saveBook: async (parent, body) => {
       const book = await Book.create(body);
       return book._id;
     },
@@ -57,35 +52,6 @@ const resolvers = {
 
     removeBook: async (parent, { book_id }) => {
       return Book.findOneAndDelete({ _id: book_id });
-    },
-    
-    // Update User information
-
-    updateUser: async (parent, { user, body }) => {
-      return User.findOneAndUpdate(
-        { _id: user._id },
-        {
-          $addToSet: { addUser: { body } },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    },
-    updateUser: async (parent, body) => {
-      return await User.findOneAndUpdate(
-        { _id: body._id },
-        { body },
-        { new: true }
-      );
-    },
-    updateBook: async (parent, body) => {
-      return await Book.findOneAndUpdate(
-        { _id: body._id },
-        { body },
-        { new: true }
-      );
     },
   },
 };
