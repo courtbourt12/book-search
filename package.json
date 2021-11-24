@@ -12,11 +12,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "homepage": "https://github.com/coding-boot-camp/unit18hw#readme",
   "devDependencies": {
     "concurrently": "^5.1.0"
   },
   "dependencies": {
     "@apollo/client": "^3.5.5",
-    "graphql": "^16.0.1"
+    "graphql": "^16.0.1",
+    "mongoose": "^5.5.15",
+    "morgan": "^1.9.1"
   }
 }
