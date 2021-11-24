@@ -17,6 +17,7 @@ const server = new ApolloServer({
 });
 server.start().then(res => {
   server.applyMiddleware({ app });
+  
   db.once('open', () => {
     app.listen(PORT, () => {
     console.log(`🌍 Server Now listening on http://localhost:${PORT}`);
@@ -26,7 +27,7 @@ server.start().then(res => {
 })
 
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // if we're in production, serve client/build as static assets

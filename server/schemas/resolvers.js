@@ -48,7 +48,7 @@ const resolvers = {
       return book._id;
     },
    
-    // Remove goal
+    // Remove book
 
     removeBook: async (parent, { book_id }) => {
       return Book.findOneAndDelete({ _id: book_id });
