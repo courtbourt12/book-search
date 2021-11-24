@@ -1,4 +1,5 @@
 const express = require('express');
+const logger = require("morgan");
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 const { typeDefs, resolvers } = require('./schemas');
@@ -8,6 +9,7 @@ const db = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+app.use(logger("dev"));
 
 
 const server = new ApolloServer({
@@ -15,9 +17,10 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
+
 server.start().then(res => {
   server.applyMiddleware({ app });
-  
+
   db.once('open', () => {
     app.listen(PORT, () => {
     console.log(`🌍 Server Now listening on http://localhost:${PORT}`);
