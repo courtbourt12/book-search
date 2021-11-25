@@ -19,7 +19,6 @@
   "dependencies": {
     "@apollo/client": "^3.5.5",
     "graphql": "^16.0.1",
-    "mongoose": "^5.5.15",
-    "morgan": "^1.9.1"
+    "mongoose": "^5.5.15"
   }
 }
