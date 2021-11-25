@@ -57,3 +57,4 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+console.log("hello")
